@@ -77,7 +77,7 @@ module "key_vault" {
 }
 
 module "private_endpoint" {
-  source = "../../"
+  source = "cyber-scot/private-endpoint/azurerm"
 
   private_endpoints = [
     {
@@ -118,7 +118,7 @@ No requirements.
 | <a name="module_key_vault"></a> [key\_vault](#module\_key\_vault) | cyber-scot/key-vault/azurerm | n/a |
 | <a name="module_network"></a> [network](#module\_network) | cyber-scot/network/azurerm | n/a |
 | <a name="module_nsg"></a> [nsg](#module\_nsg) | cyber-scot/nsg/azurerm | n/a |
-| <a name="module_private_endpoint"></a> [private\_endpoint](#module\_private\_endpoint) | ../../ | n/a |
+| <a name="module_private_endpoint"></a> [private\_endpoint](#module\_private\_endpoint) | cyber-scot/private-endpoint/azurerm | n/a |
 | <a name="module_rg"></a> [rg](#module\_rg) | cyber-scot/rg/azurerm | n/a |
 
 ## Resources

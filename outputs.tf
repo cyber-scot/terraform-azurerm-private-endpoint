@@ -1,7 +1,7 @@
 output "custom_dns_configs" {
   value = { for idx, endpoint in azurerm_private_endpoint.endpoint : idx => {
-    fqdn         = endpoint.custom_dns_configs[0].fqdn,
-    ip_addresses = endpoint.custom_dns_configs[0].ip_addresses
+    fqdn         = try(endpoint.custom_dns_configs[0].fqdn, null),
+    ip_addresses = try(endpoint.custom_dns_configs[0].ip_addresses, null)
   } }
   description = "The custom DNS configurations of the private endpoints."
 }
@@ -24,34 +24,34 @@ output "ip_configurations" {
 
 output "network_interfaces" {
   value = { for idx, endpoint in azurerm_private_endpoint.endpoint : idx => {
-    id   = endpoint.network_interface[0].id,
-    name = endpoint.network_interface[0].name
+    id   = try(endpoint.network_interface[0].id, null),
+    name = try(endpoint.network_interface[0].name, null)
   } }
   description = "The network interfaces associated with the private endpoints."
 }
 
 output "private_dns_zone_configs" {
   value = {
-    name                = try(values(azurerm_private_endpoint.endpoint.private_dns_zone_configs)[0].name, null),
-    id                  = try(values(azurerm_private_endpoint.endpoint.private_dns_zone_configs)[0].id, null),
-    private_dns_zone_id = try(values(azurerm_private_endpoint.endpoint.private_dns_zone_configs)[0].private_dns_zone_id, null),
-    record_sets         = try(values(azurerm_private_endpoint.endpoint.private_dns_zone_configs)[0].record_sets, null)
+    name                = try(azurerm_private_endpoint.endpoint.private_dns_zone_configs[0].name, null),
+    id                  = try(azurerm_private_endpoint.endpoint.private_dns_zone_configs[0].id, null),
+    private_dns_zone_id = try(azurerm_private_endpoint.endpoint.private_dns_zone_configs[0].private_dns_zone_id, null),
+    record_sets         = try(azurerm_private_endpoint.endpoint.private_dns_zone_configs[0].record_sets, null)
   }
 }
 
 output "private_service_connections" {
   value = { for idx, endpoint in azurerm_private_endpoint.endpoint : idx => {
-    private_ip_address = endpoint.private_service_connection[0].private_ip_address
+    private_ip_address = try(endpoint.private_service_connection[0].private_ip_address, null)
   } }
   description = "The private service connections of the private endpoints."
 }
 
 output "record_sets" {
   value = {
-    name         = try(values(azurerm_private_endpoint.endpoint.private_dns_zone_configs)[0].record_sets[0].name, null),
-    type         = try(values(azurerm_private_endpoint.endpoint.private_dns_zone_configs)[0].record_sets[0].type, null),
-    fqdn         = try(values(azurerm_private_endpoint.endpoint.private_dns_zone_configs)[0].record_sets[0].fqdn, null),
-    ttl          = try(values(azurerm_private_endpoint.endpoint.private_dns_zone_configs)[0].record_sets[0].ttl, null),
-    ip_addresses = try(values(azurerm_private_endpoint.endpoint.private_dns_zone_configs)[0].record_sets[0].ip_addresses, null)
+    name         = try(azurerm_private_endpoint.endpoint.private_dns_zone_configs[0].record_sets[0].name, null),
+    type         = try(azurerm_private_endpoint.endpoint.private_dns_zone_configs[0].record_sets[0].type, null),
+    fqdn         = try(azurerm_private_endpoint.endpoint.private_dns_zone_configs[0].record_sets[0].fqdn, null),
+    ttl          = try(azurerm_private_endpoint.endpoint.private_dns_zone_configs[0].record_sets[0].ttl, null),
+    ip_addresses = try(azurerm_private_endpoint.endpoint.private_dns_zone_configs[0].record_sets[0].ip_addresses, null)
   }
 }

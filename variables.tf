@@ -1,3 +1,33 @@
+variable "private_endpoints" {
+  type = list(object({
+    name                          = string
+    location                      = string
+    rg_name                       = string
+    subnet_id                     = string
+    custom_network_interface_name = optional(string)
+    tags                          = optional(map(string))
+    private_service_connection = optional(object({
+      name                              = string
+      is_manual_connection              = optional(bool)
+      private_connection_resource_id    = optional(string)
+      private_connection_resource_alias = optional(string)
+      subresource_names                 = optional(list(string))
+      request_message                   = optional(string)
+    }))
+    private_dns_zone_group = optional(object({
+      name                 = string
+      private_dns_zone_ids = optional(list(string))
+    }))
+    ip_configuration = optional(object({
+      name               = string
+      private_ip_address = optional(string)
+      subresource_name   = optional(list(string))
+      member_name        = optional(string)
+    }))
+  }))
+  default = []
+}
+
 variable "sub_resource_names" {
   type        = map(string)
   description = "The sub resource names of private endpoints found at https://learn.microsoft.com/en-gb/azure/private-link/private-endpoint-overview#private-link-resource, not used, but provided for lookup option"
@@ -53,34 +83,4 @@ variable "sub_resource_names" {
     "Microsoft.Databricks/workspaces"                        = "databricks_ui_api, browser_authentication"
     "Microsoft.Insights/privatelinkscopes"                   = "azuremonitor"
   }
-}
-
-variable "private_endpoints" {
-  type = list(object({
-    name         = string
-    location                      = string
-    rg_name                       = string
-    subnet_id                     = string
-    custom_network_interface_name = optional(string)
-    tags                          = optional(map(string))
-    private_service_connection    = optional(object({
-      name                              = string
-      is_manual_connection              = optional(bool)
-      private_connection_resource_id    = optional(string)
-      private_connection_resource_alias = optional(string)
-      subresource_names                 = optional(list(string))
-      request_message                   = optional(string)
-    }))
-    private_dns_zone_group        = optional(object({
-      name                 = string
-      private_dns_zone_ids = optional(list(string))
-    }))
-    ip_configuration              = optional(object({
-      name               = string
-      private_ip_address = optional(string)
-      subresource_name  = optional(list(string))
-      member_name        = optional(string)
-    }))
-  }))
-  default = []
 }

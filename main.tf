@@ -1,5 +1,5 @@
 resource "azurerm_private_endpoint" "endpoint" {
-  for_each                          = { for v in var.private_endpoints : v.name => v }
+  for_each = { for v in var.private_endpoints : v.name => v }
 
   name                          = each.value.name
   location                      = each.value.location
@@ -33,7 +33,7 @@ resource "azurerm_private_endpoint" "endpoint" {
     content {
       name               = ip_configuration.value.name
       private_ip_address = ip_configuration.value.private_ip_address
-      subresource_name = ip_configuration.value.subresource_name
+      subresource_name   = ip_configuration.value.subresource_name
       member_name        = ip_configuration.value.member_name
     }
   }

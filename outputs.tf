@@ -31,13 +31,12 @@ output "network_interfaces" {
 }
 
 output "private_dns_zone_configs" {
-  value = { for idx, endpoint in azurerm_private_endpoint.endpoint : idx => {
-    name                = endpoint.private_dns_zone_configs[0].name,
-    id                  = endpoint.private_dns_zone_configs[0].id,
-    private_dns_zone_id = endpoint.private_dns_zone_configs[0].private_dns_zone_id,
-    record_sets         = endpoint.private_dns_zone_configs[0].record_sets
-  } }
-  description = "The private DNS zone configurations of the private endpoints."
+  value = {
+    name                = try(values(endpoint.private_dns_zone_configs)[0].name, null),
+    id                  = try(values(endpoint.private_dns_zone_configs)[0].id, null),
+    private_dns_zone_id = try(values(endpoint.private_dns_zone_configs)[0].private_dns_zone_id, null),
+    record_sets         = try(values(endpoint.private_dns_zone_configs)[0].record_sets, null)
+  }
 }
 
 output "private_service_connections" {
@@ -48,12 +47,11 @@ output "private_service_connections" {
 }
 
 output "record_sets" {
-  value = { for idx, endpoint in azurerm_private_endpoint.endpoint : idx => {
-    name         = endpoint.private_dns_zone_configs[0].record_sets[0].name,
-    type         = endpoint.private_dns_zone_configs[0].record_sets[0].type,
-    fqdn         = endpoint.private_dns_zone_configs[0].record_sets[0].fqdn,
-    ttl          = endpoint.private_dns_zone_configs[0].record_sets[0].ttl,
-    ip_addresses = endpoint.private_dns_zone_configs[0].record_sets[0].ip_addresses
-  } }
-  description = "The record sets of the private endpoints."
+  value = {
+    name         = try(values(endpoint.private_dns_zone_configs)[0].record_sets[0].name, null),
+    type         = try(values(endpoint.private_dns_zone_configs)[0].record_sets[0].type, null),
+    fqdn         = try(values(endpoint.private_dns_zone_configs)[0].record_sets[0].fqdn, null),
+    ttl          = try(values(endpoint.private_dns_zone_configs)[0].record_sets[0].ttl, null),
+    ip_addresses = try(values(endpoint.private_dns_zone_configs)[0].record_sets[0].ip_addresses, null)
+  }
 }

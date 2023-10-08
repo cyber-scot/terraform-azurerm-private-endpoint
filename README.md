@@ -1,7 +1,7 @@
 
 ```hcl
 resource "azurerm_private_endpoint" "endpoint" {
-  for_each                          = { for v in var.private_endpoints : v.name => v }
+  for_each = { for v in var.private_endpoints : v.name => v }
 
   name                          = each.value.name
   location                      = each.value.location
@@ -35,7 +35,7 @@ resource "azurerm_private_endpoint" "endpoint" {
     content {
       name               = ip_configuration.value.name
       private_ip_address = ip_configuration.value.private_ip_address
-      subresource_name = ip_configuration.value.subresource_name
+      subresource_name   = ip_configuration.value.subresource_name
       member_name        = ip_configuration.value.member_name
     }
   }
@@ -76,6 +76,6 @@ No modules.
 | <a name="output_endpoint_ids"></a> [endpoint\_ids](#output\_endpoint\_ids) | The IDs of the Private Endpoints. |
 | <a name="output_ip_configurations"></a> [ip\_configurations](#output\_ip\_configurations) | A map of IP configurations for each private endpoint, keyed by the private endpoint name. |
 | <a name="output_network_interfaces"></a> [network\_interfaces](#output\_network\_interfaces) | The network interfaces associated with the private endpoints. |
-| <a name="output_private_dns_zone_configs"></a> [private\_dns\_zone\_configs](#output\_private\_dns\_zone\_configs) | The private DNS zone configurations of the private endpoints. |
+| <a name="output_private_dns_zone_configs"></a> [private\_dns\_zone\_configs](#output\_private\_dns\_zone\_configs) | n/a |
 | <a name="output_private_service_connections"></a> [private\_service\_connections](#output\_private\_service\_connections) | The private service connections of the private endpoints. |
-| <a name="output_record_sets"></a> [record\_sets](#output\_record\_sets) | The record sets of the private endpoints. |
+| <a name="output_record_sets"></a> [record\_sets](#output\_record\_sets) | n/a |

@@ -36,7 +36,7 @@ output "private_dns_zone_configs" {
     id                  = try(endpoint.private_dns_zone_configs[0].id, null),
     private_dns_zone_id = try(endpoint.private_dns_zone_configs[0].private_dns_zone_id, null),
     record_sets         = try(endpoint.private_dns_zone_configs[0].record_sets, null)
-  }}
+  } }
 }
 
 output "private_service_connections" {
@@ -53,6 +53,5 @@ output "record_sets" {
     fqdn         = try(endpoint.private_dns_zone_configs[0].record_sets[0].fqdn, null),
     ttl          = try(endpoint.private_dns_zone_configs[0].record_sets[0].ttl, null),
     ip_addresses = try(endpoint.private_dns_zone_configs[0].record_sets[0].ip_addresses, null)
-  }}
+  } }
 }
-

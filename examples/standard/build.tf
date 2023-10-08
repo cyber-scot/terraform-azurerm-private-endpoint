@@ -75,7 +75,7 @@ module "key_vault" {
 }
 
 module "private_endpoint" {
-  source = "cyber-scot/private-endpoint/azurerm"
+  source = "../../"
 
   private_endpoints = [
     {

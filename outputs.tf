@@ -31,12 +31,12 @@ output "network_interfaces" {
 }
 
 output "private_dns_zone_configs" {
-  value = {
-    name                = try(azurerm_private_endpoint.endpoint.private_dns_zone_configs[0].name, null),
-    id                  = try(azurerm_private_endpoint.endpoint.private_dns_zone_configs[0].id, null),
-    private_dns_zone_id = try(azurerm_private_endpoint.endpoint.private_dns_zone_configs[0].private_dns_zone_id, null),
-    record_sets         = try(azurerm_private_endpoint.endpoint.private_dns_zone_configs[0].record_sets, null)
-  }
+  value = { for k, endpoint in azurerm_private_endpoint.endpoint : k => {
+    name                = try(endpoint.private_dns_zone_configs[0].name, null),
+    id                  = try(endpoint.private_dns_zone_configs[0].id, null),
+    private_dns_zone_id = try(endpoint.private_dns_zone_configs[0].private_dns_zone_id, null),
+    record_sets         = try(endpoint.private_dns_zone_configs[0].record_sets, null)
+  }}
 }
 
 output "private_service_connections" {
@@ -47,11 +47,12 @@ output "private_service_connections" {
 }
 
 output "record_sets" {
-  value = {
-    name         = try(azurerm_private_endpoint.endpoint.private_dns_zone_configs[0].record_sets[0].name, null),
-    type         = try(azurerm_private_endpoint.endpoint.private_dns_zone_configs[0].record_sets[0].type, null),
-    fqdn         = try(azurerm_private_endpoint.endpoint.private_dns_zone_configs[0].record_sets[0].fqdn, null),
-    ttl          = try(azurerm_private_endpoint.endpoint.private_dns_zone_configs[0].record_sets[0].ttl, null),
-    ip_addresses = try(azurerm_private_endpoint.endpoint.private_dns_zone_configs[0].record_sets[0].ip_addresses, null)
-  }
+  value = { for k, endpoint in azurerm_private_endpoint.endpoint : k => {
+    name         = try(endpoint.private_dns_zone_configs[0].record_sets[0].name, null),
+    type         = try(endpoint.private_dns_zone_configs[0].record_sets[0].type, null),
+    fqdn         = try(endpoint.private_dns_zone_configs[0].record_sets[0].fqdn, null),
+    ttl          = try(endpoint.private_dns_zone_configs[0].record_sets[0].ttl, null),
+    ip_addresses = try(endpoint.private_dns_zone_configs[0].record_sets[0].ip_addresses, null)
+  }}
 }
+

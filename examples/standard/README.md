@@ -86,7 +86,7 @@ module "private_endpoint" {
       location = module.rg.rg_location
       tags     = module.rg.rg_tags
 
-      subnet_id = module.network.subnets_ids["sn1-${module.network.vnet_name}"]
+      subnet_id                     = module.network.subnets_ids["sn1-${module.network.vnet_name}"]
       custom_network_interface_name = "nic-pep-${module.key_vault.key_vault_names[0]}"
 
       private_service_connection = {

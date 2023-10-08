@@ -32,10 +32,10 @@ output "network_interfaces" {
 
 output "private_dns_zone_configs" {
   value = {
-    name                = try(values(endpoint.private_dns_zone_configs)[0].name, null),
-    id                  = try(values(endpoint.private_dns_zone_configs)[0].id, null),
-    private_dns_zone_id = try(values(endpoint.private_dns_zone_configs)[0].private_dns_zone_id, null),
-    record_sets         = try(values(endpoint.private_dns_zone_configs)[0].record_sets, null)
+    name                = try(values(azurerm_private_endpoint.endpoint.private_dns_zone_configs)[0].name, null),
+    id                  = try(values(azurerm_private_endpoint.endpoint.private_dns_zone_configs)[0].id, null),
+    private_dns_zone_id = try(values(azurerm_private_endpoint.endpoint.private_dns_zone_configs)[0].private_dns_zone_id, null),
+    record_sets         = try(values(azurerm_private_endpoint.endpoint.private_dns_zone_configs)[0].record_sets, null)
   }
 }
 
@@ -48,10 +48,10 @@ output "private_service_connections" {
 
 output "record_sets" {
   value = {
-    name         = try(values(endpoint.private_dns_zone_configs)[0].record_sets[0].name, null),
-    type         = try(values(endpoint.private_dns_zone_configs)[0].record_sets[0].type, null),
-    fqdn         = try(values(endpoint.private_dns_zone_configs)[0].record_sets[0].fqdn, null),
-    ttl          = try(values(endpoint.private_dns_zone_configs)[0].record_sets[0].ttl, null),
-    ip_addresses = try(values(endpoint.private_dns_zone_configs)[0].record_sets[0].ip_addresses, null)
+    name         = try(values(azurerm_private_endpoint.endpoint.private_dns_zone_configs)[0].record_sets[0].name, null),
+    type         = try(values(azurerm_private_endpoint.endpoint.private_dns_zone_configs)[0].record_sets[0].type, null),
+    fqdn         = try(values(azurerm_private_endpoint.endpoint.private_dns_zone_configs)[0].record_sets[0].fqdn, null),
+    ttl          = try(values(azurerm_private_endpoint.endpoint.private_dns_zone_configs)[0].record_sets[0].ttl, null),
+    ip_addresses = try(values(azurerm_private_endpoint.endpoint.private_dns_zone_configs)[0].record_sets[0].ip_addresses, null)
   }
 }
